@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   child: SizedBox(),
                 ),
                 Image.asset(
-                  "images/carkuru_logo.png",
+                  "images/carkuru_logo2.png",
                   height: 70,
                 ),
                 SizedBox(
@@ -247,37 +247,39 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _submitButton() {
     return InkWell(
       onTap: () {
-        phone = phoneController.text.trim();
-        pass = passController.text.trim();
-        if (phone.length < 1 && pass.length < 1) {
-          final snackBar = SnackBar(
-              content: Text(
-            'Enter ${tr("Email")} / ${tr("Password")} !',
-            style: TextStyle(color: Colors.red),
-          ));
-          ScaffoldMessenger.of(context).showSnackBar(snackBar);
-        } else {
-          login(phone, pass).then((data) {
-            Users user = data[0];
-            setState(() {
-              if (data.length > 0) {
-                if (user.userType == 1) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage()));
-                } else {
-                }
-              } else {
-                print(data.length);
-                final snackBar = SnackBar(
-                    content: Text(
-                  'Login Failed',
-                  style: TextStyle(color: Colors.red),
-                ).tr());
-                ScaffoldMessenger.of(context).showSnackBar(snackBar);
-              }
-            });
-          });
-        }
+        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+        // phone = phoneController.text.trim();
+        // pass = passController.text.trim();
+        // if (phone.length < 1 && pass.length < 1) {
+        //   final snackBar = SnackBar(
+        //       content: Text(
+        //     'Enter ${tr("Email")} / ${tr("Password")} !',
+        //     style: TextStyle(color: Colors.red),
+        //   ));
+        //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        // } else {
+        //   login(phone, pass).then((data) {
+        //     Users user = data[0];
+        //     setState(() {
+        //       if (data.length > 0) {
+        //         if (user.userType == 1) {
+        //           Navigator.push(context,
+        //               MaterialPageRoute(builder: (context) => HomePage()));
+        //         } else {
+        //         }
+        //       } else {
+        //         print(data.length);
+        //         final snackBar = SnackBar(
+        //             content: Text(
+        //           'Login Failed',
+        //           style: TextStyle(color: Colors.red),
+        //         ).tr());
+        //         ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        //       }
+        //     });
+        //   });
+        //
+        // }
       },
       child: Container(
           height: 50,

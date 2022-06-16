@@ -113,7 +113,7 @@ class _MyDrawerState extends State<MyDrawer> {
               ),
               InkWell(
                 onTap:(){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => OrderHistory()));
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => Notifications()));
                 },
                 child: ListTile(
                   leading: Icon(Icons.list,color: Colors.grey,),

@@ -1,9 +1,9 @@
 {
-  "app_title": "DSWIFT",
+  "app_title": "Car Kuru",
   "Login": "Login",
   "Register" : "Register",
-  "Business Account":"Business Account",
-  "Personal Account": "Personal Account",
+  "Branded Auction Car":"Branded Auction Car",
+  "Popular Auction Car": "Popular Auction Car",
   "Business Name": "Business Name",
   "Owner Name": "Owner Name",
   "Email": "Email",

@@ -63,7 +63,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   height: 30,
                 ),
                 Image.asset(
-                  "images/carkuru_logo.png",
+                  "images/carkuru_logo2.png",
                   height: 60,
                 ),
                 SizedBox(

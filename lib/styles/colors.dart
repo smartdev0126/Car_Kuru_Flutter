@@ -12,7 +12,7 @@ class MyColors {
 
   static const pending = Color(0xFFFFBF5B);
   static const onTheWay = Color(0xFF15B86A);
-  static const confirmed = Color(0xFF36D7E1);
+  static const tabColor = Color(0xFFB1B1B1);
   static const returned = Color(0xFFE13636);
 
   ///#37474F

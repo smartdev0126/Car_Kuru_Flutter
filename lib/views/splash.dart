@@ -35,7 +35,7 @@ class _SplashScreenState extends State<SplashScreen> {
                     ),
                     SizedBox(height: 5,),
                     Image.asset(
-                      "images/carkuru_logo.png",
+                      "images/carkuru_logo2.png",
                       height: 60,
                       // color: Colors.black,
                     ),

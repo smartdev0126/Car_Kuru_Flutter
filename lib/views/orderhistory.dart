@@ -7,12 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class OrderHistory extends StatefulWidget {
+class Notifications extends StatefulWidget {
   @override
-  _OrderHistoryState createState() => _OrderHistoryState();
+  _NotificationsState createState() => _NotificationsState();
 }
 
-class _OrderHistoryState extends State<OrderHistory> {
+class _NotificationsState extends State<Notifications> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -35,11 +35,8 @@ class _OrderHistoryState extends State<OrderHistory> {
             appBar: AppBar(
               elevation: 1,
               backgroundColor: MyColors.primaryColor,
-              leading: InkWell(
-                  onTap: () => _scaffoldKey.currentState.openDrawer(),
-                  child: Icon(Icons.menu, color: MyColors.white)),
               title: Text(
-                "Order History",
+                "Notifications",
                 style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -62,7 +59,7 @@ class _OrderHistoryState extends State<OrderHistory> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              "All Orders",
+                              "All Notifications",
                               style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,

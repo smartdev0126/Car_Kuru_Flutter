@@ -32,7 +32,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               children: <Widget>[
 
                 Spacer(),
-                Image.asset("images/carkuru_logo.png",height: 70,),
+                Image.asset("images/carkuru_logo2.png",height: 70,),
                 SizedBox(
                   height: 5,
                 ),
