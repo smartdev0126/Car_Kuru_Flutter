@@ -24,12 +24,10 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
-  String token;
   Users user;
-  TextEditingController searchController;
-  PersistentTabController _controller =
-      PersistentTabController(initialIndex: 0);
 
+  PersistentTabController _controller =
+  PersistentTabController(initialIndex: 0);
   @override
   void initState() {
     setBangla(false);
@@ -158,84 +156,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         child: WillPopScope(
       onWillPop: showExitPopup,
       child: Scaffold(
-          key: _scaffoldKey,
-          appBar: AppBar(
-              automaticallyImplyLeading: false,
-              toolbarHeight: 110,
-              elevation: 1,
-              bottom: PreferredSize(
-                preferredSize: Size.fromHeight(0),
-                child: Container(
-                  height: 40,
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-                  margin: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-                  decoration: BoxDecoration(
-                      color: MyColors.white,
-                      borderRadius: BorderRadius.circular(10)),
-                  child: new TextFormField(
-                    maxLines: 1,
-                    style: TextStyle(
-                        fontSize: 16.0, height: 1.0, color: Colors.black),
-                    controller: searchController,
-                    onChanged: (String value) async {
-                      token = value;
-                      //
-                      // searchShop(token).then((data) {
-                      //   setState(() {
-                      //
-                      //     searchList = data;
-                      //
-                      //     print("searching: ");
-                      //     print(searchList);
-                      //   });
-                      // });
-                    },
-                    decoration: InputDecoration(
-                        isDense: true,
-                        prefixIcon: Icon(
-                          Icons.search_rounded,
-                          color: Colors.grey,
-                        ),
-                        suffixIcon: Icon(
-                          Icons.keyboard_voice_sharp,
-                          color: Colors.grey,
-                        ),
-                        contentPadding: EdgeInsets.only(
-                            left: 5, right: 10, top: 13, bottom: 0),
-                        border: InputBorder.none,
-                        hintText: "Search Now",
-                        hintStyle: TextStyle(fontSize: 14)),
-                  ),
-                ),
-              ),
-              actions: [
-                Container(
-                  margin: EdgeInsets.only(right: 10),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Image.asset("images/Ok.png"),
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => Notifications()));
-                        },
-                        child: Icon(
-                          Icons.circle_notifications,
-                          size: 26,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-              backgroundColor: MyColors.primaryColor,
-              title: Image.asset(
-                "images/carkuru_logo.png",
-                width: 90,
-              )),
+
           body: PersistentTabView(
             context,
             controller: _controller,
