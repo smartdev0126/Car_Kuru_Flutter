@@ -243,7 +243,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 physics: ScrollPhysics(),
                                 gridDelegate:
                                     const SliverGridDelegateWithMaxCrossAxisExtent(
-                                        maxCrossAxisExtent: 240,
+                                        maxCrossAxisExtent: 260,
                                         childAspectRatio: 1,
                                         crossAxisSpacing: 5,
                                         mainAxisSpacing: 5),
@@ -272,44 +272,48 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ],
                                       ),
                                       child: Container(
-                                        padding: EdgeInsets.all(15),
                                         child: Column(
                                           mainAxisAlignment:
                                               MainAxisAlignment.center,
                                           crossAxisAlignment:
                                               CrossAxisAlignment.center,
                                           children: [
-                                            Row(
-                                              children: [
-                                                Icon(Icons.star,size: 20,),
-                                                Spacer(),
-                                                Icon(Icons.star,size: 20,),
-                                              ],
-                                            ),
-                                            Container(
-                                                padding: EdgeInsets.all(4),
-                                                child: Text(
-                                                  "\$82300",
-                                                  textAlign: TextAlign.center,
-                                                  style: TextStyle(
-                                                      fontSize: 20,
-                                                      color: Colors.black,
-                                                      fontWeight:
-                                                      FontWeight.bold),
-                                                )),
-                                            Container(
-                                              width: MediaQuery.of(context).size.width,
-                                              height: 70,
-                                              child: Image.asset(
-                                                "images/bmw.png",
-                                                scale: 1,
-                                                fit: BoxFit.cover,
-                                                alignment: Alignment.bottomRight,
+                                            Stack(children: [
+
+                                              Container(
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                height: 90,
+                                                child: Image.asset(
+                                                  "images/car.png",
+                                                  scale: 1,
+                                                  fit: BoxFit.cover,
+                                                  alignment:
+                                                      Alignment.center,
+                                                ),
                                               ),
-                                            ),
-                                            Spacer(),
+                                              Row(
+                                                children: [
+                                                  Icon(
+                                                    Icons.star,
+                                                    color: Colors.white,
+                                                    size: 20,
+                                                  ),
+                                                  Spacer(),
+                                                  Container(
+                                                    margin: EdgeInsets.only(top: 5,right: 5),
+                                                    padding: EdgeInsets.symmetric(horizontal: 10,vertical: 5),
+                                                    decoration: BoxDecoration(
+                                                      color: Colors.black,
+                                                      borderRadius: BorderRadius.circular(10)
+                                                    ),
+                                                      child: Text("Latest",style: TextStyle(color: MyColors.white),))
+                                                ],
+                                              ),
+                                            ]),
                                             Container(
-                                                padding: EdgeInsets.all(4),
+                                                padding: EdgeInsets.all(2),
                                                 child: Text(
                                                   "Porche",
                                                   textAlign: TextAlign.center,
@@ -328,9 +332,17 @@ class _HomeScreenState extends State<HomeScreen> {
                                                       fontSize: 13,
                                                       color: Colors.black),
                                                 )),
-                                            SizedBox(
-                                              height: 10,
-                                            )
+                                            Container(
+                                                padding: EdgeInsets.all(1),
+                                                child: Text(
+                                                  "\$82300",
+                                                  textAlign: TextAlign.center,
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      color: Colors.black,
+                                                      fontWeight:
+                                                          FontWeight.bold),
+                                                )),
                                           ],
                                         ),
                                       ),
@@ -350,17 +362,18 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemCount: 10,
                             shrinkWrap: true,
                             gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 140,
-                                childAspectRatio: 1,
-                                crossAxisSpacing: 5,
-                                mainAxisSpacing: 5),
+                                const SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 140,
+                                    childAspectRatio: 1,
+                                    crossAxisSpacing: 5,
+                                    mainAxisSpacing: 5),
                             scrollDirection: Axis.vertical,
                             itemBuilder: (context, i) {
                               return InkWell(
                                 onTap: () {},
                                 child: Container(
-                                  margin: EdgeInsets.only(left: 5, top: 3, right: 5, bottom: 3),
+                                  margin: EdgeInsets.only(
+                                      left: 5, top: 3, right: 5, bottom: 3),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.only(
@@ -381,12 +394,13 @@ class _HomeScreenState extends State<HomeScreen> {
                                   child: Stack(
                                     children: [
                                       Container(
-                                        width: MediaQuery.of(context).size.width,
+                                        width:
+                                            MediaQuery.of(context).size.width,
                                         height: 110,
                                         decoration: BoxDecoration(
-                                          color: const Color(0xff000000),
-                                          borderRadius: BorderRadius.circular(4)
-                                        ),
+                                            color: const Color(0xff000000),
+                                            borderRadius:
+                                                BorderRadius.circular(4)),
                                         child: Opacity(
                                           opacity: 0.5,
                                           child: Image.asset(
@@ -398,7 +412,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                         ),
                                       ),
                                       Container(
-                                        alignment: Alignment.center,
+                                          alignment: Alignment.center,
                                           child: Text(
                                             "Porche",
                                             textAlign: TextAlign.center,
@@ -407,7 +421,6 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 color: Colors.white,
                                                 fontWeight: FontWeight.bold),
                                           )),
-
                                     ],
                                   ),
                                 ),
@@ -434,7 +447,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               return InkWell(
                                 onTap: () {},
                                 child: Container(
-                                  margin: EdgeInsets.only(left: 5, top: 3, right: 5, bottom: 3),
+                                  margin: EdgeInsets.only(
+                                      left: 5, top: 3, right: 5, bottom: 3),
                                   decoration: BoxDecoration(
                                     color: Colors.white,
                                     borderRadius: BorderRadius.only(
@@ -468,9 +482,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                           alignment: Alignment.center,
                                         ),
                                       ),
-                                      SizedBox(height: 8,),
+                                      SizedBox(
+                                        height: 8,
+                                      ),
                                       Container(
-                                          margin: EdgeInsets.only(left: 10,top: 5),
+                                          margin:
+                                              EdgeInsets.only(left: 10, top: 5),
                                           child: Text(
                                             "Porche",
                                             textAlign: TextAlign.start,
@@ -480,7 +497,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 fontWeight: FontWeight.normal),
                                           )),
                                       Container(
-                                          margin: EdgeInsets.only(left: 10,top: 4),
+                                          margin:
+                                              EdgeInsets.only(left: 10, top: 4),
                                           child: Text(
                                             "911 4s Special",
                                             textAlign: TextAlign.start,
