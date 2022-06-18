@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-class Notifications extends StatefulWidget {
+class OrderHistory extends StatefulWidget {
   @override
-  _NotificationsState createState() => _NotificationsState();
+  _OrderHistoryState createState() => _OrderHistoryState();
 }
 
-class _NotificationsState extends State<Notifications> {
+class _OrderHistoryState extends State<OrderHistory> {
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   @override
@@ -33,7 +33,7 @@ class _NotificationsState extends State<Notifications> {
               elevation: 1,
               backgroundColor: MyColors.primaryColor,
               title: Text(
-                "Notifications",
+                "Order History",
                 style: TextStyle(
                     fontSize: 14,
                     fontWeight: FontWeight.bold,
@@ -56,7 +56,7 @@ class _NotificationsState extends State<Notifications> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             Text(
-                              "All Notifications",
+                              "All History",
                               style: TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,

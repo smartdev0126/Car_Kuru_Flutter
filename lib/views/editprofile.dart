@@ -6,7 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../models/user.dart';
 import '../styles/colors.dart';
-import '../widget/drawer.dart';
 
 class EditProfile extends StatefulWidget {
   Users user;
@@ -41,9 +40,6 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-
-            key: _scaffoldKey,
-            drawer: MyDrawer(),
             appBar: AppBar(
               elevation: 1,
               backgroundColor: MyColors.primaryColor,

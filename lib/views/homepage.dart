@@ -1,3 +1,5 @@
+import 'package:car_kuru/views/Screens/cameraScreen.dart';
+import 'package:car_kuru/views/Screens/favoriteScreen.dart';
 import 'package:car_kuru/views/Screens/homeScreen.dart';
 import 'package:car_kuru/views/Screens/profileScreen.dart';
 import 'package:car_kuru/views/Screens/searchScreen.dart';
@@ -10,10 +12,9 @@ import 'package:flutter/services.dart';
 import '../models/user.dart';
 import '../styles/colors.dart';
 import '../utils/shared_preference.dart';
-import '../widget/drawer.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-import 'orderhistory.dart';
+import 'notifications.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key key}) : super(key: key);
@@ -50,8 +51,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return [
       HomeScreen(),
       SearchScreen(),
-      Container(),
-      Container(),
+      CameraScreen(),
+      FavoriteScreen(),
       ProfileScreen(),
     ];
   }
