@@ -1,3 +1,4 @@
+import 'package:car_kuru/views/bidsScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -85,7 +86,15 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Image.asset("images/Ok.png"),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => BidsScreen()));
+                      },
+                      child: Image.asset("images/Ok.png")
+                  ),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(

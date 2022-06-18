@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../styles/colors.dart';
+import '../bidsScreen.dart';
 import '../notifications.dart';
 import '../orderHistory.dart';
 
@@ -192,7 +193,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                       InkWell(
-                        onTap: () {},
+                        onTap: () {
+
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => BidsScreen()));
+                        },
                         child: Container(
                           color: MyColors.white,
                           child: Column(
