@@ -80,7 +80,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     return Container(
                       padding: EdgeInsets.all(15),
                       margin: EdgeInsets.only(bottom: 4,left: 10,right: 10),
-                      color: MyColors.grey,
+                      color: MyColors.white,
                       child: Row(
                         children: [
                           Icon(

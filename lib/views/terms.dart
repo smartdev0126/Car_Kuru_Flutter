@@ -1,6 +1,5 @@
 import 'package:car_kuru/styles/colors.dart';
 import 'package:car_kuru/utils/api.dart';
-import 'package:car_kuru/widget/drawer.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -27,9 +26,6 @@ class _TermsState extends State<Terms> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-
-            key: _scaffoldKey,
-            drawer: MyDrawer(),
             appBar: AppBar(
               elevation: 1,
               backgroundColor: MyColors.primaryColor,

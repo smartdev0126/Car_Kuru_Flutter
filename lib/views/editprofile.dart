@@ -6,12 +6,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../models/user.dart';
 import '../styles/colors.dart';
-import '../widget/drawer.dart';
 
 class EditProfile extends StatefulWidget {
-  Users user;
-
-  EditProfile(this.user);
 
   @override
   _EditProfileState createState() => _EditProfileState();
@@ -32,7 +28,7 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void initState() {
     setState(() {
-      user = widget.user;
+      // user = widget.user;
     });
     super.initState();
   }
@@ -41,9 +37,6 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-
-            key: _scaffoldKey,
-            drawer: MyDrawer(),
             appBar: AppBar(
               elevation: 1,
               backgroundColor: MyColors.primaryColor,
@@ -64,6 +57,20 @@ class _EditProfileState extends State<EditProfile> {
                       SizedBox(
                         height: 30,
                       ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: MyColors.grey,
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: Icon(
+                          Icons.account_circle,
+                          color: MyColors.white,
+                          size: 90,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 30,
+                      ),
                       Stack(
                         children: <Widget>[
                           Container(
@@ -72,8 +79,8 @@ class _EditProfileState extends State<EditProfile> {
                               padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                               height: 50,
                               decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black),
-                                  borderRadius: BorderRadius.circular(50)),
+                                  color: MyColors.grey,
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
@@ -97,7 +104,7 @@ class _EditProfileState extends State<EditProfile> {
                                 textAlign: TextAlign.center,
                                 enabled: false,
                                 decoration: InputDecoration(
-                                  hintText: user.name,
+                                  hintText: "Tasfiqul Ghani",
                                   focusedBorder: InputBorder.none,
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(color: Colors.black),
@@ -117,8 +124,8 @@ class _EditProfileState extends State<EditProfile> {
                               padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                               height: 50,
                               decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black),
-                                  borderRadius: BorderRadius.circular(50)),
+                                  color: MyColors.grey,
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
@@ -142,7 +149,7 @@ class _EditProfileState extends State<EditProfile> {
                                 textAlign: TextAlign.center,
                                 enabled: false,
                                 decoration: InputDecoration(
-                                  hintText: user.phone,
+                                  hintText: "01092091028",
                                   focusedBorder: InputBorder.none,
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(color: Colors.black),
@@ -165,8 +172,8 @@ class _EditProfileState extends State<EditProfile> {
                               padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                               height: 50,
                               decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black),
-                                  borderRadius: BorderRadius.circular(50)),
+                                  color: MyColors.grey,
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
@@ -190,7 +197,7 @@ class _EditProfileState extends State<EditProfile> {
                                 textAlign: TextAlign.center,
                                 controller: addressController,
                                 decoration: InputDecoration(
-                                  hintText: user.address,
+                                  hintText: "Address",
                                   focusedBorder: InputBorder.none,
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(color: Colors.grey),
@@ -200,70 +207,6 @@ class _EditProfileState extends State<EditProfile> {
                         ],
                       ),
 
-                      SizedBox(
-                        height: 16,
-                      ),
-
-                      Text(
-                        'Payment Method'.tr(),
-                        style: TextStyle(fontSize: 14, color: MyColors.black),
-                      ),
-                      Container(
-                        margin: EdgeInsets.fromLTRB(30, 10, 30, 0),
-                        padding: EdgeInsets.only(left: 10,right: 10),
-                        alignment: Alignment.center,
-                        height: 50,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black),
-                            borderRadius: BorderRadius.circular(50)),
-                        child: DropdownButtonFormField<int>(
-                          isExpanded: true,
-                          decoration: InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.transparent)),
-                              border: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white,))
-                          ),
-                          items: [
-
-                            DropdownMenuItem<int>(
-                              value: 1,
-                              child: Text(
-                                "Bkash".tr(),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DropdownMenuItem<int>(
-                              value: 2,
-                              child: Text(
-                                "Nagad".tr(),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                            DropdownMenuItem<int>(
-                              value: 3,
-                              child: Text(
-                                "UPay".tr(),
-                                textAlign: TextAlign.center,
-                              ),
-                            ),
-                          ],
-                          onChanged: (value) {
-                            setState(() {
-                              _payment = value;
-                            });
-                          },
-                          hint: Center(
-                            child: Text(
-                              "Select Payment Method",
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Colors.black,
-                              ),
-                            ).tr(),
-                          ),
-                        ),
-                      ),
 
 
                       SizedBox(
@@ -278,8 +221,8 @@ class _EditProfileState extends State<EditProfile> {
                               padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
                               height: 50,
                               decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black),
-                                  borderRadius: BorderRadius.circular(50)),
+                                  color: MyColors.grey,
+                                  borderRadius: BorderRadius.circular(10)),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: <Widget>[
@@ -288,7 +231,7 @@ class _EditProfileState extends State<EditProfile> {
                                     height: 22,
                                     width: 22,
                                     child: Icon(
-                                      Icons.phone,
+                                      Icons.email,
                                       color: Colors.black54,
                                       size: 20,
                                     ),
@@ -302,7 +245,7 @@ class _EditProfileState extends State<EditProfile> {
                               child: TextField(
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
-                                  hintText: user.phone,
+                                  hintText: "Email",
                                   focusedBorder: InputBorder.none,
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(color: Colors.grey),
@@ -315,54 +258,7 @@ class _EditProfileState extends State<EditProfile> {
                       SizedBox(
                         height: 16,
                       ),
-                      Stack(
-                        children: <Widget>[
-                          Container(
-                              width: double.infinity,
-                              margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
-                              height: 50,
-                              decoration: BoxDecoration(
-                                  border: Border.all(color: Colors.black),
-                                  borderRadius: BorderRadius.circular(50)),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: <Widget>[
-                                  Container(
-                                    margin: EdgeInsets.only(left: 20),
-                                    height: 22,
-                                    width: 22,
-                                    child: Icon(
-                                      Icons.vpn_key,
-                                      color: Colors.black54,
-                                      size: 20,
-                                    ),
-                                  ),
-                                ],
-                              )),
-                          Container(
-                              height: 50,
-                              margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
-                              padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
-                              child: TextField(
-                                textAlign: TextAlign.center,
-                                controller: passController,
-                                obscureText: true,
-                                obscuringCharacter: "*",
-                                decoration: InputDecoration(
-                                  hintText: user.password,
-                                  focusedBorder: InputBorder.none,
-                                  border: InputBorder.none,
-                                  hintStyle: TextStyle(color: Colors.grey),
-                                ),
-                                style: TextStyle(fontSize: 14, color: Colors.black),
-                              )),
-                        ],
-                      ),
 
-                      SizedBox(
-                        height: 26,
-                      ),
                       _submitButton(),
 
                       SizedBox(
@@ -390,13 +286,13 @@ class _EditProfileState extends State<EditProfile> {
               fontSize: 16.0
           );
         }else{
-          String address;
-          String pass;
-
-          address = addressController.text.isEmpty ? widget.user.address : addressController.text;
-          pass = passController.text.isEmpty ? widget.user.password : passController.text;
-
-          user = Users(name: widget.user.name,businessName:widget.user.businessName,phone:widget.user.phone,email: widget.user.email,mobileId:widget.user.mobileId,password:pass,userType:widget.user.userType,address: address,status: widget.user.status);
+          // String address;
+          // String pass;
+          //
+          // address = addressController.text.isEmpty ? widget.user.address : addressController.text;
+          // pass = passController.text.isEmpty ? widget.user.password : passController.text;
+          //
+          // user = Users(name: widget.user.name,businessName:widget.user.businessName,phone:widget.user.phone,email: widget.user.email,mobileId:widget.user.mobileId,password:pass,userType:widget.user.userType,address: address,status: widget.user.status);
 
         }
 
@@ -411,7 +307,7 @@ class _EditProfileState extends State<EditProfile> {
           margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
           alignment: Alignment.center,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
+              borderRadius: BorderRadius.circular(10),
               boxShadow: <BoxShadow>[
                 BoxShadow(
                     color: Colors.grey,
@@ -419,10 +315,7 @@ class _EditProfileState extends State<EditProfile> {
                     blurRadius: 5,
                     spreadRadius: 2)
               ],
-              gradient: LinearGradient(
-                  begin: Alignment.centerLeft,
-                  end: Alignment.centerRight,
-                  colors: [Color(0xff5bf4ff), Color(0xff1bb4bd)])),
+              color: MyColors.primaryColor,),
           child: Text(
             'Save',
             style: TextStyle(fontSize: 16, color: MyColors.white),
