@@ -1,5 +1,6 @@
 import 'package:car_kuru/views/bidsScreen.dart';
 import 'package:car_kuru/views/singleProductScreen.dart';
+import 'package:car_kuru/views/sortScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -385,7 +386,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             scrollDirection: Axis.vertical,
                             itemBuilder: (context, i) {
                               return InkWell(
-                                onTap: () {},
+                                onTap: () {
+
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => SortScreen()));
+                                },
                                 child: Container(
                                   margin: EdgeInsets.only(
                                       left: 5, top: 3, right: 5, bottom: 3),
