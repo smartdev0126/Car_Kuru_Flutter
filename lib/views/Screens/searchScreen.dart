@@ -1,4 +1,5 @@
 import 'package:car_kuru/styles/colors.dart';
+import 'package:car_kuru/views/homepage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
@@ -33,9 +34,13 @@ class _SearchScreenState extends State<SearchScreen> {
             padding: EdgeInsets.all(15),
             child: Row(
               children: [
-                Icon(
-                  Icons.arrow_back,
-                  color: MyColors.white,
+                GestureDetector(
+                  onTap:(){
+                  },
+                  child: Icon(
+                    Icons.arrow_back,
+                    color: MyColors.white,
+                  ),
                 ),
                 SizedBox(
                   width: 20,

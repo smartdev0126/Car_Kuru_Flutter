@@ -1,3 +1,4 @@
+import 'package:car_kuru/views/registrationScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -145,34 +146,67 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    Container(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width,
-                        padding: EdgeInsets.symmetric(vertical: 5),
-                        margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
-                        alignment: Alignment.center,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          boxShadow: <BoxShadow>[
-                            BoxShadow(
-                                color: Colors.grey,
-                                offset: Offset(1, 2),
-                                blurRadius: 3,
-                                spreadRadius: 2)
-                          ],
-                          color: MyColors.orange,
-                        ),
-                        child: Text(
-                          'Bid Now',
-                          style: TextStyle(fontSize: 16, color: MyColors.white),
-                        )),
-                    SizedBox(
+                    GestureDetector(
+                      onTap: (){
+                        showDialog<String>(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: Center(child: const Text('Toyota Cover Van',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),)),
+                            content: ListTile(
+                              title:  const Text('Top Bidding Price: 1000\$',style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold)),
+                              subtitle:  const Text('AVG Bidding Price: 1000\$',style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
+                            ),
+                            actions: <Widget>[
+                              const TextField(
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  hintText: 'Enter Bid Amount',
+                                ),
+                              ),
+                              SizedBox(height: 10,),
+                              Center(
+                                child: Container(
+                                  padding: const EdgeInsets.only(left: 40,right: 40,bottom: 10,top: 10),
+                                  color: MyColors.primaryColor,
+                                  child: GestureDetector(
+                                    onTap: () => Navigator.pop(context, 'OK'),
+                                    child: const Text('Bid',style: TextStyle(color: Colors.white),),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      child: Container(
+                          height: 40,
+                          width: MediaQuery.of(context).size.width,
+                          padding: EdgeInsets.symmetric(vertical: 5),
+                          margin: EdgeInsets.fromLTRB(40, 0, 40, 0),
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: const <BoxShadow>[
+                               BoxShadow(
+                                  color: Colors.grey,
+                                  offset: Offset(1, 2),
+                                  blurRadius: 3,
+                                  spreadRadius: 2)
+                            ],
+                            color: MyColors.orange,
+                          ),
+                          child: const Text(
+                            'Bid Now',
+                            style: TextStyle(fontSize: 16, color: MyColors.white),
+                          )),
+                    ),
+                    const SizedBox(
                       height: 8,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
+                      children: const [
                         Icon(
                           Icons.verified,
                           size: 15,
@@ -233,14 +267,14 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                   TableRow(children: [
                     Column(children: [Text('Model:',style: TextStyle(color: MyColors.primaryColor))]),
                     Column(children: [Text('Grace')]),
-                    Column(children: [Text('Transmmission:',style: TextStyle(color: MyColors.primaryColor))]),
-                    Column(children: [Text('Automatic')]),
+                    Column(children: [Text('Transmission:',style: TextStyle(color: MyColors.primaryColor))]),
+                    Column(children: [Text('Auto')]),
                   ]),
                   TableRow(children: [
                     Column(children: [Text('Fuel Type:',style: TextStyle(color: MyColors.primaryColor))]),
                     Column(children: [Text('Hybrid')]),
-                    Column(children: [Text('Transmmission:',style: TextStyle(color: MyColors.primaryColor))]),
-                    Column(children: [Text('Automatic')]),
+                    Column(children: [Text('Transmission:',style: TextStyle(color: MyColors.primaryColor))]),
+                    Column(children: [Text('Auto')]),
                   ]),
                 ],
               ),
@@ -261,14 +295,14 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                   Container(
                     height: MediaQuery.of(context).size.height,
                     padding: EdgeInsets.only(
-                        left: 20, right: 20, top: 10, bottom: 30),
+                        left: 20, right: 20, top: 10, bottom: 10),
                     child: Expanded(
                       child: GridView.builder(
                         itemCount: 6,
                         shrinkWrap: true,
                         gridDelegate:
                             const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 180,
+                                maxCrossAxisExtent: 150,
                                 childAspectRatio: 1,
                                 crossAxisSpacing: 5,
                                 mainAxisSpacing: 5),
@@ -306,10 +340,10 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                                     ),
                                   ),
                                   SizedBox(
-                                    height: 4,
+                                    height: 2,
                                   ),
                                   Container(
-                                      margin: EdgeInsets.only(left: 10, top: 5),
+                                      margin: EdgeInsets.only(left: 10, top: 2),
                                       child: Text(
                                         "Porche",
                                         textAlign: TextAlign.start,
@@ -319,7 +353,7 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                                             fontWeight: FontWeight.normal),
                                       )),
                                   Container(
-                                      margin: EdgeInsets.only(left: 10, top: 4),
+                                      margin: EdgeInsets.only(left: 10, top: 0),
                                       child: Text(
                                         "911 4s Special",
                                         textAlign: TextAlign.start,
@@ -328,9 +362,6 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                                             fontWeight: FontWeight.bold,
                                             color: MyColors.primaryColor),
                                       )),
-                                  SizedBox(
-                                    height: 5,
-                                  )
                                 ],
                               ),
                             ),
