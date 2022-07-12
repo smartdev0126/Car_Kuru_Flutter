@@ -15,14 +15,13 @@ class RegistrationScreen extends StatefulWidget {
 }
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
-  final businessController = TextEditingController();
   final nameController = TextEditingController();
   final emailController = TextEditingController();
+  final addressController = TextEditingController();
   final phoneController = TextEditingController();
-  final pickupController = TextEditingController();
   final passController = TextEditingController();
 
-  String phone, pass, businessname, ownername, email, address;
+  String phone, pass, ownername, email, address;
   String deviceId;
 
   @override
@@ -138,7 +137,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               ),
                             ),
                           ],
-                        )),
+                        )
+                    ),
                     Container(
                         height: 50,
                         margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
@@ -159,6 +159,50 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 SizedBox(
                   height: 16,
                 ),
+                Stack(
+                  children: <Widget>[
+                    Container(
+                        width: double.infinity,
+                        margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 10),
+                        height: 50,
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(50)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: <Widget>[
+                            Container(
+                              margin: EdgeInsets.only(left: 20),
+                              height: 22,
+                              width: 22,
+                              child: Icon(
+                                Icons.email,
+                                color: Colors.black54,
+                                size: 20,
+                              ),
+                            ),
+                          ],
+                        )
+                    ),
+                    Container(
+                        height: 50,
+                        margin: EdgeInsets.fromLTRB(30, 0, 30, 0),
+                        padding: EdgeInsets.fromLTRB(0, 10, 0, 5),
+                        child: TextField(
+                          controller: addressController,
+                          textAlign: TextAlign.center,
+                          decoration: InputDecoration(
+                            hintText: tr('Address'),
+                            focusedBorder: InputBorder.none,
+                            border: InputBorder.none,
+                            hintStyle: TextStyle(color: Colors.grey),
+                          ),
+                          style: TextStyle(fontSize: 14, color: Colors.black),
+                        )),
+                  ],
+                ),
+                SizedBox(height: 16,),
                 Stack(
                   children: <Widget>[
                     Container(
@@ -298,21 +342,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       onTap: () {
         print(phoneController.text.length);
         if (phoneController.text.length == 11) {
-          businessname = businessController.text.trim();
           ownername = nameController.text.trim();
           phone = phoneController.text.trim();
           pass = passController.text.trim();
           email = emailController.text.trim();
-          address = pickupController.text.trim();
+          address = addressController.text.trim();
 
           Users user = Users(
-              businessName: businessname,
               name: ownername,
-              mobileId: "a",
               phone: phone,
               email: email,
               password: pass,
               address: address,
+              lat: 0,
+              lng: 0,
+              isActive: true,
               status: 1);
 
           print(user);

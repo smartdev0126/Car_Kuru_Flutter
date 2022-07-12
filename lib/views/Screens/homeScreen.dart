@@ -1,3 +1,5 @@
+import 'package:car_kuru/models/Vehicle.dart';
+import 'package:car_kuru/utils/api.dart';
 import 'package:car_kuru/views/bidsScreen.dart';
 import 'package:car_kuru/views/singleProductScreen.dart';
 import 'package:car_kuru/views/sortScreen.dart';
@@ -6,11 +8,15 @@ import 'package:flutter/material.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import '../../models/user.dart';
 import '../../styles/colors.dart';
+import '../../utils/shared_preference.dart';
 import '../notifications.dart';
+import '../search_bar.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key key}) : super(key: key);
+  Users user;
+  HomeScreen(this.user);
 
   @override
   _HomeScreenState createState() => _HomeScreenState();
@@ -19,6 +25,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   TabController _tabController;
   String token;
+
+  int id = 0;
+  List<Vehicle> vehicleList = new List<Vehicle>();
+  Users user;
+
   TextEditingController searchController;
   PersistentTabController _controller =
       PersistentTabController(initialIndex: 0);
@@ -30,6 +41,24 @@ class _HomeScreenState extends State<HomeScreen> {
     Tab(text: 'Pickup'),
   ];
 
+
+  @override
+  void initState() {
+    vehicle().then((data) {
+      setState(() {
+        if (data != null) {
+          vehicleList = data;
+          print("vehicleList ${vehicleList}");
+          print("vehicleList fetched");
+        } else {
+          print("vehicleList failed");
+        }
+      });
+    });
+
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -39,46 +68,34 @@ class _HomeScreenState extends State<HomeScreen> {
           elevation: 1,
           bottom: PreferredSize(
             preferredSize: Size.fromHeight(0),
-            child: Container(
-              height: 40,
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 0),
-              margin: EdgeInsets.only(left: 10, right: 10, bottom: 15),
-              decoration: BoxDecoration(
-                  color: MyColors.white,
-                  borderRadius: BorderRadius.circular(10)),
-              child: new TextFormField(
-                maxLines: 1,
-                style:
-                    TextStyle(fontSize: 16.0, height: 1.0, color: Colors.black),
-                controller: searchController,
-                onChanged: (String value) async {
-                  token = value;
-                  //
-                  // searchShop(token).then((data) {
-                  //   setState(() {
-                  //
-                  //     searchList = data;
-                  //
-                  //     print("searching: ");
-                  //     print(searchList);
-                  //   });
-                  // });
-                },
-                decoration: InputDecoration(
-                    isDense: true,
-                    prefixIcon: Icon(
+            child: GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context) => SearchNow()));
+              },
+              child: Container(
+                height: 50,
+                padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                decoration: BoxDecoration(
+                    color: MyColors.white,
+                    borderRadius: BorderRadius.circular(10)),
+                child: Container(
+                  child: ListTile(
+                    leading: Icon(
                       Icons.search_rounded,
                       color: Colors.grey,
                     ),
-                    suffixIcon: Icon(
+                    title: Text(
+                      "Search Now",
+                      style: TextStyle(fontSize: 16.0, height: 1.0, color: Colors.black),
+                    ),
+                    trailing: Icon(
                       Icons.keyboard_voice_sharp,
                       color: Colors.grey,
                     ),
-                    contentPadding:
-                        EdgeInsets.only(left: 5, right: 10, top: 13, bottom: 0),
-                    border: InputBorder.none,
-                    hintText: "Search Now",
-                    hintStyle: TextStyle(fontSize: 14)),
+                  ),
+                )
+
               ),
             ),
           ),
@@ -93,7 +110,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => BidsScreen()));
+                                builder: (context) => BidsScreen(widget.user)));
                       },
                       child: Image.asset("images/Ok.png")
                   ),
@@ -265,7 +282,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Expanded(
                               child: GridView.builder(
-                                itemCount: 4,
+                                itemCount: vehicleList.length,
                                 shrinkWrap: false,
                                 physics: ScrollPhysics(),
                                 gridDelegate:
@@ -278,10 +295,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 itemBuilder: (context, i) {
                                   return InkWell(
                                     onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => SingleProductScreen()));
+                                      Navigator.push(context, MaterialPageRoute(
+                                          builder: (context) => SingleProductScreen()));
                                     },
                                     child: Container(
                                       margin: EdgeInsets.only(
@@ -347,7 +362,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                             Container(
                                                 padding: EdgeInsets.all(2),
                                                 child: Text(
-                                                  "Porche",
+                                                  vehicleList[i].title,
                                                   textAlign: TextAlign.center,
                                                   style: TextStyle(
                                                       fontSize: 15,

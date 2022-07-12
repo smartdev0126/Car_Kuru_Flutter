@@ -5,13 +5,15 @@ import 'package:car_kuru/views/loginScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../../models/user.dart';
 import '../../styles/colors.dart';
 import '../bidsScreen.dart';
 import '../notifications.dart';
 import '../orderHistory.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({Key key}) : super(key: key);
+  Users user;
+  ProfileScreen(this.user);
 
   @override
   _ProfileScreenState createState() => _ProfileScreenState();
@@ -198,7 +200,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => BidsScreen()));
+                                  builder: (context) => BidsScreen(widget.user)));
                         },
                         child: Container(
                           color: MyColors.white,

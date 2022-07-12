@@ -57,6 +57,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
     getUser().then((data){
       setState(() {
+        print(data.name);
         user = data;
         if(data!=null){
           int id = user.id;
@@ -68,7 +69,7 @@ class _MyHomePageState extends State<MyHomePage> {
             Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
           });
         }else{
-          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
+          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(user)));
         }
 
       });

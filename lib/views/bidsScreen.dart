@@ -2,12 +2,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../styles/colors.dart';
+import '../models/Bid.dart';
 import '../models/user.dart';
 import '../utils/api.dart';
 import '../utils/shared_preference.dart';
 
 class BidsScreen extends StatefulWidget {
-  const BidsScreen({Key key}) : super(key: key);
+  Users user;
+
+  BidsScreen(this.user);
 
   @override
   _BidsScreenState createState() => _BidsScreenState();
@@ -17,27 +20,29 @@ class _BidsScreenState extends State<BidsScreen> {
   TextEditingController searchController;
 
   Users user;
-  int id;
+
+  List<Bid> bidList = new List<Bid>();
 
   @override
   void initState() {
     getUser().then((data) {
       setState(() {
         user = data;
-        id = user.id;
-        print("user id ${user.id}");
 
-        userBid(id).then((data) {
-          setState((){
-            if(data!=null){
-              print("user bid fetched");
-            }else{
-              print("user bid failed");
+        userBid(user.id).then((data) {
+          setState(() {
+            if (data != null) {
+              bidList = data;
+              print("Bid list ${bidList}");
+              print("Bid list fetched");
+            } else {
+              print("Bid list failed");
             }
           });
         });
       });
     });
+
     super.initState();
   }
 
@@ -58,7 +63,7 @@ class _BidsScreenState extends State<BidsScreen> {
                 height: MediaQuery.of(context).size.height,
                 child: Expanded(
                   child:  ListView.builder(
-                    itemCount: 10,
+                    itemCount: bidList.length,
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (context, i) {
@@ -102,7 +107,7 @@ class _BidsScreenState extends State<BidsScreen> {
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: [
                                 SizedBox(height: 3,),
-                                Text("Toyota Cover Van",textAlign:TextAlign.start,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.black),),
+                                Text(bidList[i].text,textAlign:TextAlign.start,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 16,color: Colors.black),),
                                 SizedBox(height: 5,),
                                 Text("\$ 9000",textAlign:TextAlign.start,style: TextStyle(fontSize: 14,color: Colors.red,fontWeight: FontWeight.bold),),
                                 Row(

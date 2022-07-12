@@ -17,7 +17,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'notifications.dart';
 
 class HomePage extends StatefulWidget {
-  const HomePage({Key key}) : super(key: key);
+  Users user;
+  HomePage(this.user);
 
   @override
   _HomePageState createState() => _HomePageState();
@@ -38,7 +39,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       if (data != null) {
         setState(() {
           user = data;
-
           print("user id ${user.id}");
         });
       }
@@ -49,11 +49,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
 
   List<Widget> buildScreens() {
     return [
-      HomeScreen(),
+      HomeScreen(widget.user),
       SearchScreen(),
       CameraScreen(),
       FavoriteScreen(),
-      ProfileScreen(),
+      ProfileScreen(widget.user),
     ];
   }
 

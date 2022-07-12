@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:car_kuru/models/Vehicle.dart';
+import 'package:car_kuru/models/shopsearch.dart';
 import 'package:car_kuru/utils/shared_preference.dart';
 import 'package:car_kuru/utils/uri.dart';
 import 'package:flutter/material.dart';
@@ -56,12 +57,12 @@ Future<int> userCreate(data) async {
 }
 
 
-Future<Vehicle> vehicle() async {
+Future<List<Vehicle>> vehicle() async {
   String url ='$baseUrl/v0/Vehicle/';
   final responseBody = (await http.get(Uri.parse(url)));
 
   if(responseBody.body !=null){
-    return Vehicle.fromJson(jsonDecode(responseBody.body));
+    return Vehicle.fromJsonList(jsonDecode(responseBody.body));
   }else{
     return null;
   }
@@ -82,12 +83,21 @@ Future<Bid> bids() async {
 }
 
 
-Future<Bid> userBid(int id) async {
-  String url ='$baseUrl/v0/bid/${id}/';
+Future<List<Bid>> userBid(int id) async {
+  String url ='$baseUrl/v0/bid/?user=${id}/';
+  final responseBody = (await http.get(Uri.parse(url)));
+
+  return Bid.fromJsonList(jsonDecode(responseBody.body));
+
+}
+
+
+Future<List<VehicleSearch>> vehicleSearch(String token) async {
+  String url ='$baseUrl/v0/Vehicle/?text=${token}';
   final responseBody = (await http.get(Uri.parse(url)));
 
   if(responseBody.body !=null){
-    return Bid.fromJson(jsonDecode(responseBody.body));
+    return VehicleSearch.fromJsonList(jsonDecode(responseBody.body));
   }else{
     return null;
   }

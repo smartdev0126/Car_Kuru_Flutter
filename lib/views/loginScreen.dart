@@ -247,9 +247,6 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _submitButton() {
     return InkWell(
       onTap: () {
-
-        Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage()));
-
         phone = phoneController.text.trim();
         pass = passController.text.trim();
         if (phone.length < 1 && pass.length < 1) {
@@ -264,11 +261,7 @@ class _LoginScreenState extends State<LoginScreen> {
             Users user = data[0];
             setState(() {
               if (data.length > 0) {
-                if (user.userType == 1) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => HomePage()));
-                } else {
-                }
+                Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(user)));
               } else {
                 print(data.length);
                 final snackBar = SnackBar(
