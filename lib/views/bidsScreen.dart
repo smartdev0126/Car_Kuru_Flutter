@@ -2,6 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../styles/colors.dart';
+import '../models/user.dart';
+import '../utils/api.dart';
+import '../utils/shared_preference.dart';
 
 class BidsScreen extends StatefulWidget {
   const BidsScreen({Key key}) : super(key: key);
@@ -12,6 +15,32 @@ class BidsScreen extends StatefulWidget {
 
 class _BidsScreenState extends State<BidsScreen> {
   TextEditingController searchController;
+
+  Users user;
+  int id;
+
+  @override
+  void initState() {
+    getUser().then((data) {
+      setState(() {
+        user = data;
+        id = user.id;
+        print("user id ${user.id}");
+
+        userBid(id).then((data) {
+          setState((){
+            if(data!=null){
+              print("user bid fetched");
+            }else{
+              print("user bid failed");
+            }
+          });
+        });
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

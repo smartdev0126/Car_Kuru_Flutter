@@ -1,11 +1,14 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:car_kuru/models/Vehicle.dart';
+import 'package:car_kuru/utils/shared_preference.dart';
 import 'package:car_kuru/utils/uri.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
+import '../models/Bid.dart';
 import '../models/user.dart';
 
 
@@ -26,7 +29,7 @@ Future<List<Users>> login(phone, pass) async {
     );
     return [];
   }else{
-    // saveUser(json.encode(Users.fromJsonList(jsonDecode(responseBody.body)).first.toJson()));
+    saveUser(json.encode(Users.fromJsonList(jsonDecode(responseBody.body)).first.toJson()));
     return  Users.fromJsonList(jsonDecode(responseBody.body));
   }
 
@@ -49,5 +52,44 @@ Future<int> userCreate(data) async {
     print("Failed to submit ${responseBody.statusCode}");
   }
   return responseBody.statusCode;
+
+}
+
+
+Future<Vehicle> vehicle() async {
+  String url ='$baseUrl/v0/Vehicle/';
+  final responseBody = (await http.get(Uri.parse(url)));
+
+  if(responseBody.body !=null){
+    return Vehicle.fromJson(jsonDecode(responseBody.body));
+  }else{
+    return null;
+  }
+
+}
+
+
+Future<Bid> bids() async {
+  String url ='$baseUrl/v0/bid/';
+  final responseBody = (await http.get(Uri.parse(url)));
+
+  if(responseBody.body !=null){
+    return Bid.fromJson(jsonDecode(responseBody.body));
+  }else{
+    return null;
+  }
+
+}
+
+
+Future<Bid> userBid(int id) async {
+  String url ='$baseUrl/v0/bid/${id}/';
+  final responseBody = (await http.get(Uri.parse(url)));
+
+  if(responseBody.body !=null){
+    return Bid.fromJson(jsonDecode(responseBody.body));
+  }else{
+    return null;
+  }
 
 }

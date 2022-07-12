@@ -1,2 +1,2 @@
-// dswift server
-const String baseUrl = 'http://213.136.83.116:9001';
+// carkuru server
+const String baseUrl = 'http://54.183.63.1:8000';
