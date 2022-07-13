@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:car_kuru/models/AllVehicle.dart';
 import 'package:car_kuru/models/Vehicle.dart';
 import 'package:car_kuru/models/shopsearch.dart';
 import 'package:car_kuru/utils/shared_preference.dart';
@@ -10,6 +11,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 
 import '../models/Bid.dart';
+import '../models/Brand.dart';
 import '../models/user.dart';
 
 
@@ -57,18 +59,41 @@ Future<int> userCreate(data) async {
 }
 
 
-Future<List<Vehicle>> vehicle() async {
+Future<List<AllVehicle>> allVehicles() async {
   String url ='$baseUrl/v0/Vehicle/';
   final responseBody = (await http.get(Uri.parse(url)));
 
   if(responseBody.body !=null){
-    return Vehicle.fromJsonList(jsonDecode(responseBody.body));
+    return AllVehicle.fromJsonList(jsonDecode(responseBody.body));
   }else{
     return null;
   }
 
 }
 
+Future<Vehicle> singleVehicle(int id) async {
+  String url ='$baseUrl/v0/Vehicle/${id}/';
+  final responseBody = (await http.get(Uri.parse(url)));
+
+  if(responseBody.body !=null){
+    return Vehicle.fromJson(jsonDecode(responseBody.body));
+  }else{
+    return null;
+  }
+
+}
+
+Future<List<Brand>> allBrands() async {
+  String url ='$baseUrl/v0/brand/';
+  final responseBody = (await http.get(Uri.parse(url)));
+
+  if(responseBody.body !=null){
+    return Brand.fromJsonList(jsonDecode(responseBody.body));
+  }else{
+    return null;
+  }
+
+}
 
 Future<Bid> bids() async {
   String url ='$baseUrl/v0/bid/';
@@ -92,12 +117,37 @@ Future<List<Bid>> userBid(int id) async {
 }
 
 
-Future<List<VehicleSearch>> vehicleSearch(String token) async {
+Future<List<Shopsearch>> vehicleSearch(String token) async {
   String url ='$baseUrl/v0/Vehicle/?text=${token}';
   final responseBody = (await http.get(Uri.parse(url)));
 
   if(responseBody.body !=null){
-    return VehicleSearch.fromJsonList(jsonDecode(responseBody.body));
+    return Shopsearch.fromJsonList(jsonDecode(responseBody.body));
+  }else{
+    return null;
+  }
+
+}
+
+
+Future<List<AllVehicle>> payFrima() async {
+  String url ='$baseUrl/v0/Vehicle/?group=3';
+  final responseBody = (await http.get(Uri.parse(url)));
+
+  if(responseBody.body !=null){
+    return AllVehicle.fromJsonList(jsonDecode(responseBody.body));
+  }else{
+    return null;
+  }
+
+}
+
+Future<List<AllVehicle>> pickupVehicle() async {
+  String url ='$baseUrl/v0/Vehicle/?group=3';
+  final responseBody = (await http.get(Uri.parse(url)));
+
+  if(responseBody.body !=null){
+    return AllVehicle.fromJsonList(jsonDecode(responseBody.body));
   }else{
     return null;
   }

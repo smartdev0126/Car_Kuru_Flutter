@@ -1,5 +1,6 @@
-import 'package:car_kuru/models/Vehicle.dart';
+import 'package:car_kuru/models/AllVehicle.dart';
 import 'package:car_kuru/utils/api.dart';
+import 'package:car_kuru/utils/uri.dart';
 import 'package:car_kuru/views/bidsScreen.dart';
 import 'package:car_kuru/views/singleProductScreen.dart';
 import 'package:car_kuru/views/sortScreen.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import '../../models/Brand.dart';
 import '../../models/user.dart';
 import '../../styles/colors.dart';
 import '../../utils/shared_preference.dart';
@@ -27,7 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
   String token;
 
   int id = 0;
-  List<Vehicle> vehicleList = new List<Vehicle>();
+  List<AllVehicle> vehicleList = new List<AllVehicle>();
+  List<AllVehicle> frimaList = new List<AllVehicle>();
+  List<AllVehicle> pickupList = new List<AllVehicle>();
+  List<Brand> brandList = new List<Brand>();
   Users user;
 
   TextEditingController searchController;
@@ -44,7 +49,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   void initState() {
-    vehicle().then((data) {
+    allVehicles().then((data) {
       setState(() {
         if (data != null) {
           vehicleList = data;
@@ -56,6 +61,41 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     });
 
+    allBrands().then((data) {
+      setState(() {
+        if (data != null) {
+          brandList = data;
+          print("brandList ${brandList}");
+          print("brandList fetched");
+        } else {
+          print("brandList failed");
+        }
+      });
+    });
+
+    payFrima().then((data) {
+      setState(() {
+        if (data != null) {
+          frimaList = data;
+          print("payfrima ${frimaList}");
+          print("payfrima fetched");
+        } else {
+          print("payfrima failed");
+        }
+      });
+    });
+
+    pickupVehicle().then((data) {
+      setState(() {
+        if (data != null) {
+          pickupList = data;
+          print("pickupList ${pickupList}");
+          print("pickupList fetched");
+        } else {
+          print("pickupList failed");
+        }
+      });
+    });
     super.initState();
   }
 
@@ -235,7 +275,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               margin: EdgeInsets.symmetric(vertical: 10.0),
                               height: 90.0,
                               child: ListView.builder(
-                                itemCount: 10,
+                                itemCount: brandList.length,
                                 shrinkWrap: true,
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, i) {
@@ -255,8 +295,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                             MainAxisAlignment.start,
                                         children: [
                                           Container(
-                                            child: Image.asset(
-                                              "images/bmw.png",
+                                            child: Image.network(
+                                              "${baseUrl}${brandList[i].image}",
                                               fit: BoxFit.contain,
                                               height: 90,
                                               alignment: Alignment.center,
@@ -296,7 +336,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   return InkWell(
                                     onTap: () {
                                       Navigator.push(context, MaterialPageRoute(
-                                          builder: (context) => SingleProductScreen()));
+                                          builder: (context) => SingleProductScreen(vehicleList[i].id)));
                                     },
                                     child: Container(
                                       margin: EdgeInsets.only(
@@ -332,8 +372,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                     .size
                                                     .width,
                                                 height: 90,
-                                                child: Image.asset(
-                                                  "images/car.png",
+                                                child: Image.network(
+                                                  "${baseUrl}${vehicleList[i].image}",
                                                   scale: 1,
                                                   fit: BoxFit.cover,
                                                   alignment:
@@ -406,7 +446,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: EdgeInsets.all(20),
                         child: Expanded(
                           child: GridView.builder(
-                            itemCount: 10,
+                            itemCount: frimaList.length,
                             shrinkWrap: true,
                             gridDelegate:
                                 const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -456,8 +496,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                                 BorderRadius.circular(4)),
                                         child: Opacity(
                                           opacity: 0.5,
-                                          child: Image.asset(
-                                            "images/car.png",
+                                          child: Image.network(
+                                            "${baseUrl}${frimaList[i].image}",
                                             scale: 1,
                                             fit: BoxFit.cover,
                                             alignment: Alignment.center,
@@ -467,7 +507,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                       Container(
                                           alignment: Alignment.center,
                                           child: Text(
-                                            "Porches",
+                                            "${frimaList[i].title}",
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                                 fontSize: 20,
@@ -487,7 +527,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         padding: EdgeInsets.all(20),
                         child: Expanded(
                           child: GridView.builder(
-                            itemCount: 10,
+                            itemCount: pickupList.length,
                             shrinkWrap: true,
                             gridDelegate:
                                 const SliverGridDelegateWithMaxCrossAxisExtent(
@@ -499,7 +539,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             itemBuilder: (context, i) {
                               return InkWell(
                                 onTap: () {
-                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> SingleProductScreen()));
+                                  Navigator.push(context, MaterialPageRoute(builder: (context)=> SingleProductScreen(pickupList[i].id)));
                                 },
                                 child: Container(
                                   margin: EdgeInsets.only(
@@ -530,8 +570,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                         width:
                                             MediaQuery.of(context).size.width,
                                         height: 110,
-                                        child: Image.asset(
-                                          "images/car.png",
+                                        child: Image.network(
+                                          "${baseUrl}${pickupList[i].image}",
                                           scale: 1,
                                           fit: BoxFit.cover,
                                           alignment: Alignment.center,
@@ -544,7 +584,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           margin:
                                               EdgeInsets.only(left: 10, top: 5),
                                           child: Text(
-                                            "Porche",
+                                            "${pickupList[i].title}",
                                             textAlign: TextAlign.start,
                                             style: TextStyle(
                                                 fontSize: 14,
@@ -555,7 +595,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                           margin:
                                               EdgeInsets.only(left: 10, top: 4),
                                           child: Text(
-                                            "911 4s Special",
+                                            "${pickupList[i].edition}",
                                             textAlign: TextAlign.start,
                                             style: TextStyle(
                                                 fontSize: 12,

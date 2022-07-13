@@ -19,7 +19,7 @@ class SearchNow extends StatefulWidget {
 class _SearchNowState extends State<SearchNow> {
 
   TextEditingController searchController;
-  List<VehicleSearch> searchList = new List<VehicleSearch>();
+  List<Shopsearch> searchList = new List<Shopsearch>();
 
   String token;
 
@@ -30,11 +30,13 @@ class _SearchNowState extends State<SearchNow> {
 
     vehicleSearch(token).then((data) {
       setState(() {
-
-        searchList = data;
-
-        print("searching: ");
-        print(searchList);
+        print("result ${searchList.length}");
+        if(data != null){
+          searchList = data;
+          print("searching: ${searchList}");
+        }else{
+          print("searching: not found");
+        }
       });
     });
 
@@ -64,11 +66,14 @@ class _SearchNowState extends State<SearchNow> {
 
               vehicleSearch(token).then((data) {
                 setState(() {
+                  print("result ${searchList.length}");
+                  if(data != null){
+                    searchList = data;
+                    print("searching: ${searchList}");
+                  }else{
+                    print("searching: not found");
+                  }
 
-                  searchList = data;
-
-                  print("searching: ");
-                  print(searchList);
                 });
               });
 
@@ -87,7 +92,7 @@ class _SearchNowState extends State<SearchNow> {
       body: SafeArea(
           child: searchList.length ==0 ? Center(
             child: Container(
-              child: Text("Search for vehicle",style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold),),
+              child: Text("Nothing found",style: TextStyle(fontSize: 20,fontWeight: FontWeight.normal),),
             ),
           ):Container(
             color: MyColors.grey,
@@ -115,25 +120,10 @@ class _SearchNowState extends State<SearchNow> {
                         ),
                         child: Container(
                             margin: EdgeInsets.only(left: 20),
-                            child: Stack(
-                              children: <Widget>[
-                                Positioned.fill(
-                                  child: Image.network(
-                                    "$baseUrl${searchList[i].image}",
-                                    fit: BoxFit.contain,
-                                    alignment: Alignment.topRight,
-                                  ),
-                                ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(searchList[i].title,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18,color: MyColors.white),),
-                                    Text(searchList[i].address,style: TextStyle(fontSize: 14,color: MyColors.white),),
-                                    Text("")
-                                  ],
-                                ),
-                              ],
+                            child: Image.network(
+                              "${baseUrl}${searchList[i].image}",
+                              fit: BoxFit.contain,
+                              alignment: Alignment.center,
                             )
                         ),
                       ),
@@ -144,21 +134,11 @@ class _SearchNowState extends State<SearchNow> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(height: 5,),
-                            Text("${searchList[i].address}",style: TextStyle(fontSize: 12,color: Colors.black),),
-                            SizedBox(height: 5,),
-                            Row(
-                              children: [
-                                Icon(Icons.directions_bike_sharp,color: MyColors.primaryColor,size: 14,),
-                                SizedBox(width: 5,),
-                                Text("Free Delivery",style: TextStyle(fontWeight:FontWeight.bold,fontSize: 12,color: MyColors.primaryColor),),
-                              ],
-                            ),
+                            Text("${searchList[i].description}",style: TextStyle(fontSize: 12,color: Colors.black),),
                             SizedBox(height: 5,),
 
                           ],
                         ),
-
-
 
                       )
 

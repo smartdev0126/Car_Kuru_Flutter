@@ -1,11 +1,15 @@
+import 'package:car_kuru/utils/api.dart';
 import 'package:car_kuru/views/registrationScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../../styles/colors.dart';
+import '../models/Vehicle.dart';
+import '../utils/uri.dart';
 
 class SingleProductScreen extends StatefulWidget {
-  const SingleProductScreen({Key key}) : super(key: key);
+  int id;
+  SingleProductScreen(this.id);
 
   @override
   _SingleProductScreenState createState() => _SingleProductScreenState();
@@ -13,19 +17,47 @@ class SingleProductScreen extends StatefulWidget {
 
 class _SingleProductScreenState extends State<SingleProductScreen> {
   TextEditingController searchController;
+  Vehicle vehicle;
+  bool loading = true;
+
+  @override
+  void initState() {
+    singleVehicle(widget.id).then((data) {
+      setState(() {
+        vehicle = data;
+        loading = false;
+      });
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      appBar: loading == true ?  AppBar(
+        backgroundColor: MyColors.primaryColor,
+      ): AppBar(
         backgroundColor: MyColors.primaryColor,
         title: Text(
-          "Product Name",
+          "${vehicle.title}",
           style: TextStyle(fontSize: 14),
         ),
       ),
       body: SingleChildScrollView(
-        child: Container(
+        child: loading ==true ? Container(
+          height: MediaQuery.of(context).size.height-60,
+          width: MediaQuery.of(context).size.width,
+          child: Center(
+            child: Container(
+              height: 30,
+              width: 30,
+              child: CircularProgressIndicator(
+                color: MyColors.primaryColor,
+              ),
+            ),
+          ),
+        ): Container(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -35,8 +67,8 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Image.asset(
-                      "images/bike.jpg",
+                    Image.network(
+                      "${baseUrl}${vehicle.image}",
                       height: 220,
                       width: MediaQuery.of(context).size.width,
                       fit: BoxFit.cover,
@@ -64,7 +96,7 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                                 topLeft: Radius.circular(40),
                                 bottomRight: Radius.circular(40))),
                         child: Text(
-                          "95000 Yen Biding Price",
+                          "${vehicle.price} Yen Biding Price",
                           style: TextStyle(
                               color: MyColors.black,
                               fontWeight: FontWeight.bold),
@@ -133,7 +165,7 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                             height: 10,
                           ),
                           Text(
-                            "This is the main description of the item. This is the main description This is the main description of the item. This is the main description of the item. ",
+                            "${vehicle.description}",
                             textAlign: TextAlign.start,
                             style: TextStyle(
                                 fontWeight: FontWeight.normal,
@@ -240,40 +272,31 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                     Column(
                         children: [Text('', style: TextStyle(fontSize: 10.0))]),
                   ]),
-                  TableRow(children: [
-                    Column(children: [Text('Brand:',style: TextStyle(color: MyColors.primaryColor),),]),
-                    Column(children: [Text('Toyota',)]),
-                    Column(children: [
-                      Text(
-                        'Year:',style: TextStyle(color: MyColors.primaryColor),
-                      )
-                    ]),
-                    Column(children: [Text('2019')]),
-                  ]),
+
                   TableRow(children: [
                     Column(children: [
                       Text(
                         'Edition:',style: TextStyle(color: MyColors.primaryColor)
                       )
                     ]),
-                    Column(children: [Text('EL/GL')]),
+                    Column(children: [Text('${vehicle.edition}')]),
                     Column(children: [
                       Text(
                         'Year:',style: TextStyle(color: MyColors.primaryColor)
                       )
                     ]),
-                    Column(children: [Text('2019')]),
+                    Column(children: [Text('${vehicle.edition}')]),
                   ]),
                   TableRow(children: [
                     Column(children: [Text('Model:',style: TextStyle(color: MyColors.primaryColor))]),
-                    Column(children: [Text('Grace')]),
+                    Column(children: [Text('${vehicle.model}')]),
                     Column(children: [Text('Transmission:',style: TextStyle(color: MyColors.primaryColor))]),
-                    Column(children: [Text('Auto')]),
+                    Column(children: [Text('${vehicle.transmission == 1? "Auto": "Manual"}')]),
                   ]),
                   TableRow(children: [
                     Column(children: [Text('Fuel Type:',style: TextStyle(color: MyColors.primaryColor))]),
-                    Column(children: [Text('Hybrid')]),
-                    Column(children: [Text('Transmission:',style: TextStyle(color: MyColors.primaryColor))]),
+                    Column(children: [Text('${vehicle.fuelType == 1? "Auto": "Manual"}')]),
+                    Column(children: [Text('Gear:',style: TextStyle(color: MyColors.primaryColor))]),
                     Column(children: [Text('Auto')]),
                   ]),
                 ],
@@ -281,97 +304,97 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
               SizedBox(
                 height: 30,
               ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                      margin: EdgeInsets.only(left: 25),
-                      child: Text(
-                        "Similar Products",
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
-                      )),
-                  Container(
-                    height: MediaQuery.of(context).size.height,
-                    padding: EdgeInsets.only(
-                        left: 20, right: 20, top: 10, bottom: 10),
-                    child: Expanded(
-                      child: GridView.builder(
-                        itemCount: 6,
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 150,
-                                childAspectRatio: 1,
-                                crossAxisSpacing: 5,
-                                mainAxisSpacing: 5),
-                        scrollDirection: Axis.vertical,
-                        itemBuilder: (context, i) {
-                          return InkWell(
-                            onTap: () {},
-                            child: Container(
-                              margin: EdgeInsets.only(
-                                  left: 5, top: 3, right: 5, bottom: 3),
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                boxShadow: [
-                                  BoxShadow(
-                                    color: Colors.grey.withOpacity(0.1),
-                                    spreadRadius: 1,
-                                    blurRadius: 2,
-                                    offset: Offset(
-                                        0, 1), // changes position of shadow
-                                  ),
-                                ],
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 70,
-                                    child: Image.asset(
-                                      "images/car.png",
-                                      scale: 1,
-                                      fit: BoxFit.cover,
-                                      alignment: Alignment.center,
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    height: 2,
-                                  ),
-                                  Container(
-                                      margin: EdgeInsets.only(left: 10, top: 2),
-                                      child: Text(
-                                        "Porche",
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                            fontSize: 12,
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.normal),
-                                      )),
-                                  Container(
-                                      margin: EdgeInsets.only(left: 10, top: 0),
-                                      child: Text(
-                                        "911 4s Special",
-                                        textAlign: TextAlign.start,
-                                        style: TextStyle(
-                                            fontSize: 10,
-                                            fontWeight: FontWeight.bold,
-                                            color: MyColors.primaryColor),
-                                      )),
-                                ],
-                              ),
-                            ),
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                ],
-              )
+              // Column(
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //     Container(
+              //         margin: EdgeInsets.only(left: 25),
+              //         child: Text(
+              //           "Similar Products",
+              //           style: TextStyle(
+              //               fontSize: 14, fontWeight: FontWeight.bold),
+              //         )),
+              //     Container(
+              //       height: MediaQuery.of(context).size.height,
+              //       padding: EdgeInsets.only(
+              //           left: 20, right: 20, top: 10, bottom: 10),
+              //       child: Expanded(
+              //         child: GridView.builder(
+              //           itemCount: 6,
+              //           shrinkWrap: true,
+              //           gridDelegate:
+              //               const SliverGridDelegateWithMaxCrossAxisExtent(
+              //                   maxCrossAxisExtent: 150,
+              //                   childAspectRatio: 1,
+              //                   crossAxisSpacing: 5,
+              //                   mainAxisSpacing: 5),
+              //           scrollDirection: Axis.vertical,
+              //           itemBuilder: (context, i) {
+              //             return InkWell(
+              //               onTap: () {},
+              //               child: Container(
+              //                 margin: EdgeInsets.only(
+              //                     left: 5, top: 3, right: 5, bottom: 3),
+              //                 decoration: BoxDecoration(
+              //                   color: Colors.white,
+              //                   boxShadow: [
+              //                     BoxShadow(
+              //                       color: Colors.grey.withOpacity(0.1),
+              //                       spreadRadius: 1,
+              //                       blurRadius: 2,
+              //                       offset: Offset(
+              //                           0, 1), // changes position of shadow
+              //                     ),
+              //                   ],
+              //                 ),
+              //                 child: Column(
+              //                   mainAxisAlignment: MainAxisAlignment.start,
+              //                   crossAxisAlignment: CrossAxisAlignment.start,
+              //                   children: [
+              //                     Container(
+              //                       width: MediaQuery.of(context).size.width,
+              //                       height: 70,
+              //                       child: Image.asset(
+              //                         "images/car.png",
+              //                         scale: 1,
+              //                         fit: BoxFit.cover,
+              //                         alignment: Alignment.center,
+              //                       ),
+              //                     ),
+              //                     SizedBox(
+              //                       height: 2,
+              //                     ),
+              //                     Container(
+              //                         margin: EdgeInsets.only(left: 10, top: 2),
+              //                         child: Text(
+              //                           "Porche",
+              //                           textAlign: TextAlign.start,
+              //                           style: TextStyle(
+              //                               fontSize: 12,
+              //                               color: Colors.black,
+              //                               fontWeight: FontWeight.normal),
+              //                         )),
+              //                     Container(
+              //                         margin: EdgeInsets.only(left: 10, top: 0),
+              //                         child: Text(
+              //                           "911 4s Special",
+              //                           textAlign: TextAlign.start,
+              //                           style: TextStyle(
+              //                               fontSize: 10,
+              //                               fontWeight: FontWeight.bold,
+              //                               color: MyColors.primaryColor),
+              //                         )),
+              //                   ],
+              //                 ),
+              //               ),
+              //             );
+              //           },
+              //         ),
+              //       ),
+              //     ),
+              //   ],
+              // )
             ],
           ),
         ),

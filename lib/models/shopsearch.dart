@@ -1,88 +1,123 @@
-class VehicleSearch {
-  int id;
-  double avgRate;
-  int totalRate;
-  double deliveryCharge;
-  String tsCreated;
-  String tsUpdated;
-  String title;
-  String address;
-  double lat;
-  bool isKitchen;
-  bool isRestaurant;
-  bool isPickup;
-  bool isFoodDelivery;
-  int promotionType;
-  double lng;
-  String logo;
-  String image;
-  int category;
+/// id : 1
+/// ts_created : "2022-06-28T10:58:07.994635Z"
+/// ts_updated : "2022-06-28T10:58:09.356582Z"
+/// title : "3"
+/// description : "33"
+/// group : 3
+/// image : "/media/None/aci_YoFaIRD.png"
+/// price : 22.0
+/// edition : "2"
+/// model : "2"
+/// fuel_type : "2"
+/// year : "2022-06-28T10:57:46Z"
+/// transmission : "2"
+/// category : 1
+/// brand : 1
 
-  VehicleSearch(
-      {this.id,
-        this.avgRate,
-        this.totalRate,
-        this.deliveryCharge,
-        this.tsCreated,
-        this.tsUpdated,
-        this.title,
-        this.address,
-        this.lat,
-        this.isKitchen,
-        this.isRestaurant,
-        this.isPickup,
-        this.isFoodDelivery,
-        this.promotionType,
-        this.lng,
-        this.logo,
-        this.image,
-        this.category});
+class Shopsearch {
+  Shopsearch({
+      int id, 
+      String tsCreated, 
+      String tsUpdated, 
+      String title, 
+      String description, 
+      int group, 
+      String image, 
+      double price, 
+      String edition, 
+      String model, 
+      String fuelType, 
+      String year, 
+      String transmission, 
+      int category, 
+      int brand,}){
+    _id = id;
+    _tsCreated = tsCreated;
+    _tsUpdated = tsUpdated;
+    _title = title;
+    _description = description;
+    _group = group;
+    _image = image;
+    _price = price;
+    _edition = edition;
+    _model = model;
+    _fuelType = fuelType;
+    _year = year;
+    _transmission = transmission;
+    _category = category;
+    _brand = brand;
+}
 
-  VehicleSearch.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    avgRate = json['avg_rate'];
-    totalRate = json['total_rate'];
-    deliveryCharge = json['delivery_charge'];
-    tsCreated = json['ts_created'];
-    tsUpdated = json['ts_updated'];
-    title = json['title'];
-    address = json['address'];
-    lat = json['lat'];
-    isKitchen = json['is_kitchen'];
-    isRestaurant = json['is_restaurant'];
-    isPickup = json['is_pickup'];
-    isFoodDelivery = json['is_food_delivery'];
-    promotionType = json['promotion_type'];
-    lng = json['lng'];
-    logo = json['logo'];
-    image = json['image'];
-    category = json['category'];
+  Shopsearch.fromJson(dynamic json) {
+    _id = json['id'];
+    _tsCreated = json['ts_created'];
+    _tsUpdated = json['ts_updated'];
+    _title = json['title'];
+    _description = json['description'];
+    _group = json['group'];
+    _image = json['image'];
+    _price = json['price'];
+    _edition = json['edition'];
+    _model = json['model'];
+    _fuelType = json['fuel_type'];
+    _year = json['year'];
+    _transmission = json['transmission'];
+    _category = json['category'];
+    _brand = json['brand'];
   }
+  int _id;
+  String _tsCreated;
+  String _tsUpdated;
+  String _title;
+  String _description;
+  int _group;
+  String _image;
+  double _price;
+  String _edition;
+  String _model;
+  String _fuelType;
+  String _year;
+  String _transmission;
+  int _category;
+  int _brand;
+
+  int get id => _id;
+  String get tsCreated => _tsCreated;
+  String get tsUpdated => _tsUpdated;
+  String get title => _title;
+  String get description => _description;
+  int get group => _group;
+  String get image => _image;
+  double get price => _price;
+  String get edition => _edition;
+  String get model => _model;
+  String get fuelType => _fuelType;
+  String get year => _year;
+  String get transmission => _transmission;
+  int get category => _category;
+  int get brand => _brand;
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['avg_rate'] = this.avgRate;
-    data['total_rate'] = this.totalRate;
-    data['delivery_charge'] = this.deliveryCharge;
-    data['ts_created'] = this.tsCreated;
-    data['ts_updated'] = this.tsUpdated;
-    data['title'] = this.title;
-    data['address'] = this.address;
-    data['lat'] = this.lat;
-    data['is_kitchen'] = this.isKitchen;
-    data['is_restaurant'] = this.isRestaurant;
-    data['is_pickup'] = this.isPickup;
-    data['is_food_delivery'] = this.isFoodDelivery;
-    data['promotion_type'] = this.promotionType;
-    data['lng'] = this.lng;
-    data['logo'] = this.logo;
-    data['image'] = this.image;
-    data['category'] = this.category;
-    return data;
+    final map = <String, dynamic>{};
+    map['id'] = _id;
+    map['ts_created'] = _tsCreated;
+    map['ts_updated'] = _tsUpdated;
+    map['title'] = _title;
+    map['description'] = _description;
+    map['group'] = _group;
+    map['image'] = _image;
+    map['price'] = _price;
+    map['edition'] = _edition;
+    map['model'] = _model;
+    map['fuel_type'] = _fuelType;
+    map['year'] = _year;
+    map['transmission'] = _transmission;
+    map['category'] = _category;
+    map['brand'] = _brand;
+    return map;
   }
 
-  static List<VehicleSearch> fromJsonList(jsonList) {
-    return jsonList.map<VehicleSearch>((obj) => VehicleSearch.fromJson(obj)).toList();
+  static List<Shopsearch> fromJsonList(jsonList) {
+    return jsonList.map<Shopsearch>((obj) => Shopsearch.fromJson(obj)).toList();
   }
 }

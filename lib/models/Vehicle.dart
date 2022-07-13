@@ -1,9 +1,10 @@
 /// id : 1
 /// ts_created : "2022-06-28T10:58:07.994635Z"
-/// ts_updated : "2022-06-28T10:58:09.356582Z"
+/// ts_updated : "2022-07-13T14:57:47.439831Z"
 /// title : "3"
 /// description : "33"
-/// image : "/media/None/aci_YoFaIRD.png"
+/// group : 3
+/// image : "/media/None/pngegg_At4WsCd.png"
 /// price : 22.0
 /// edition : "2"
 /// model : "2"
@@ -15,25 +16,27 @@
 
 class Vehicle {
   Vehicle({
-      int id,
-      String tsCreated,
-      String tsUpdated,
-      String title,
-      String description,
-      String image,
-      double price,
-      String edition,
-      String model,
-      String fuelType,
-      String year,
-      String transmission,
-      int category,
+      int id, 
+      String tsCreated, 
+      String tsUpdated, 
+      String title, 
+      String description, 
+      int group, 
+      String image, 
+      double price, 
+      String edition, 
+      String model, 
+      String fuelType, 
+      String year, 
+      String transmission, 
+      int category, 
       int brand,}){
     _id = id;
     _tsCreated = tsCreated;
     _tsUpdated = tsUpdated;
     _title = title;
     _description = description;
+    _group = group;
     _image = image;
     _price = price;
     _edition = edition;
@@ -51,6 +54,7 @@ class Vehicle {
     _tsUpdated = json['ts_updated'];
     _title = json['title'];
     _description = json['description'];
+    _group = json['group'];
     _image = json['image'];
     _price = json['price'];
     _edition = json['edition'];
@@ -66,6 +70,7 @@ class Vehicle {
   String _tsUpdated;
   String _title;
   String _description;
+  int _group;
   String _image;
   double _price;
   String _edition;
@@ -81,6 +86,7 @@ class Vehicle {
   String get tsUpdated => _tsUpdated;
   String get title => _title;
   String get description => _description;
+  int get group => _group;
   String get image => _image;
   double get price => _price;
   String get edition => _edition;
@@ -98,6 +104,7 @@ class Vehicle {
     map['ts_updated'] = _tsUpdated;
     map['title'] = _title;
     map['description'] = _description;
+    map['group'] = _group;
     map['image'] = _image;
     map['price'] = _price;
     map['edition'] = _edition;
@@ -108,10 +115,6 @@ class Vehicle {
     map['category'] = _category;
     map['brand'] = _brand;
     return map;
-  }
-
-  static List<Vehicle> fromJsonList(jsonList) {
-    return jsonList.map<Vehicle>((obj) => Vehicle.fromJson(obj)).toList();
   }
 
 }
