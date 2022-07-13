@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 import '../../models/user.dart';
 import '../../styles/colors.dart';
+import '../../utils/shared_preference.dart';
 import '../bidsScreen.dart';
 import '../notifications.dart';
 import '../orderHistory.dart';
@@ -21,6 +22,18 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   TextEditingController searchController;
+
+  Users user;
+
+  @override
+  void initState() {
+    getUser().then((data) {
+      setState(() {
+        user = data;
+      });
+    });
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -66,7 +79,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       width: 20,
                     ),
                     Text(
-                      "Tasfiqul Ghani",
+                      "${user==null? "": user.name}",
                       style: TextStyle(
                           fontSize: 20, fontWeight: FontWeight.normal),
                     ),

@@ -6,6 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../models/user.dart';
 import '../styles/colors.dart';
+import '../utils/shared_preference.dart';
 
 class EditProfile extends StatefulWidget {
 
@@ -14,25 +15,23 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  final addressController = TextEditingController();
+  final passController = TextEditingController();
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
   int _payment = 1;
   String name;
   Users user;
 
-  final addressController = TextEditingController();
-  final passController = TextEditingController();
-
-
-  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
-
   @override
   void initState() {
-    setState(() {
-      // user = widget.user;
+    getUser().then((data) {
+      setState(() {
+        user = data;
+      });
     });
     super.initState();
   }
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -46,7 +45,7 @@ class _EditProfileState extends State<EditProfile> {
               ),
               title: Text("Edit Profile",style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold,color:MyColors.white),textAlign: TextAlign.center,).tr(),
             ),
-            body: SingleChildScrollView(
+            body: user ==null ? Container(): SingleChildScrollView(
                 child: Container(
                   margin: EdgeInsets.only(left: 20,right: 20),
                   child: Column(
@@ -104,7 +103,7 @@ class _EditProfileState extends State<EditProfile> {
                                 textAlign: TextAlign.center,
                                 enabled: false,
                                 decoration: InputDecoration(
-                                  hintText: "Tasfiqul Ghani",
+                                  hintText: "${user.name}",
                                   focusedBorder: InputBorder.none,
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(color: Colors.black),
@@ -149,7 +148,7 @@ class _EditProfileState extends State<EditProfile> {
                                 textAlign: TextAlign.center,
                                 enabled: false,
                                 decoration: InputDecoration(
-                                  hintText: "01092091028",
+                                  hintText: "${user.phone}",
                                   focusedBorder: InputBorder.none,
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(color: Colors.black),
@@ -197,7 +196,7 @@ class _EditProfileState extends State<EditProfile> {
                                 textAlign: TextAlign.center,
                                 controller: addressController,
                                 decoration: InputDecoration(
-                                  hintText: "Address",
+                                  hintText: "${user.address}",
                                   focusedBorder: InputBorder.none,
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(color: Colors.grey),
@@ -245,7 +244,7 @@ class _EditProfileState extends State<EditProfile> {
                               child: TextField(
                                 textAlign: TextAlign.center,
                                 decoration: InputDecoration(
-                                  hintText: "Email",
+                                  hintText: "${user.email}",
                                   focusedBorder: InputBorder.none,
                                   border: InputBorder.none,
                                   hintStyle: TextStyle(color: Colors.grey),

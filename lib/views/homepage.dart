@@ -3,6 +3,7 @@ import 'package:car_kuru/views/Screens/favoriteScreen.dart';
 import 'package:car_kuru/views/Screens/homeScreen.dart';
 import 'package:car_kuru/views/Screens/profileScreen.dart';
 import 'package:car_kuru/views/Screens/searchScreen.dart';
+import 'package:car_kuru/views/search_bar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -50,7 +51,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   List<Widget> buildScreens() {
     return [
       HomeScreen(widget.user),
-      SearchScreen(),
+      SearchNow(),
       CameraScreen(),
       FavoriteScreen(),
       ProfileScreen(widget.user),

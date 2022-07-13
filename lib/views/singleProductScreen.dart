@@ -2,9 +2,12 @@ import 'package:car_kuru/utils/api.dart';
 import 'package:car_kuru/views/registrationScreen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 import '../../styles/colors.dart';
 import '../models/Vehicle.dart';
+import '../models/user.dart';
+import '../utils/shared_preference.dart';
 import '../utils/uri.dart';
 
 class SingleProductScreen extends StatefulWidget {
@@ -18,10 +21,19 @@ class SingleProductScreen extends StatefulWidget {
 class _SingleProductScreenState extends State<SingleProductScreen> {
   TextEditingController searchController;
   Vehicle vehicle;
+  Bids bids;
   bool loading = true;
+  Users user;
+
+  final amountController = TextEditingController();
 
   @override
   void initState() {
+    getUser().then((data) {
+      setState(() {
+        user = data;
+      });
+    });
     singleVehicle(widget.id).then((data) {
       setState(() {
         vehicle = data;
@@ -40,7 +52,7 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
       ): AppBar(
         backgroundColor: MyColors.primaryColor,
         title: Text(
-          "${vehicle.title}",
+          "${vehicle.vehicle.title}",
           style: TextStyle(fontSize: 14),
         ),
       ),
@@ -68,7 +80,7 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Image.network(
-                      "${baseUrl}${vehicle.image}",
+                      "${baseUrl}${vehicle.vehicle.image}",
                       height: 220,
                       width: MediaQuery.of(context).size.width,
                       fit: BoxFit.cover,
@@ -96,7 +108,7 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                                 topLeft: Radius.circular(40),
                                 bottomRight: Radius.circular(40))),
                         child: Text(
-                          "${vehicle.price} Yen Biding Price",
+                          "${vehicle.vehicle.price} Yen Biding Price",
                           style: TextStyle(
                               color: MyColors.black,
                               fontWeight: FontWeight.bold),
@@ -165,7 +177,7 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                             height: 10,
                           ),
                           Text(
-                            "${vehicle.description}",
+                            "${vehicle.vehicle.description}",
                             textAlign: TextAlign.start,
                             style: TextStyle(
                                 fontWeight: FontWeight.normal,
@@ -189,11 +201,13 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                               subtitle:  const Text('AVG Bidding Price: 1000\$',style: TextStyle(fontSize: 12,fontWeight: FontWeight.bold),),
                             ),
                             actions: <Widget>[
-                              const TextField(
+                              TextFormField(
                                 decoration: InputDecoration(
                                   border: OutlineInputBorder(),
                                   hintText: 'Enter Bid Amount',
                                 ),
+                                keyboardType: TextInputType.number,
+                                controller: amountController,
                               ),
                               SizedBox(height: 10,),
                               Center(
@@ -201,7 +215,36 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                                   padding: const EdgeInsets.only(left: 40,right: 40,bottom: 10,top: 10),
                                   color: MyColors.primaryColor,
                                   child: GestureDetector(
-                                    onTap: () => Navigator.pop(context, 'OK'),
+                                    onTap: () {
+                                      double amount = double.parse(amountController.value.toString()) ;
+                                      vehicle = Vehicle(vehicle: Vehicles(price: amount));
+                                      bidVehicle(user,user.id).then((data) {
+                                        setState(() {
+                                          if (data == 200) {
+                                            Fluttertoast.showToast(
+                                                msg: "Successfully Bid",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.CENTER,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.red,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0
+                                            );
+
+                                          } else {
+                                            Fluttertoast.showToast(
+                                                msg: "Failed to bid",
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.CENTER,
+                                                timeInSecForIosWeb: 1,
+                                                backgroundColor: Colors.red,
+                                                textColor: Colors.white,
+                                                fontSize: 16.0
+                                            );
+                                          }
+                                        });
+                                      });
+                                    },
                                     child: const Text('Bid',style: TextStyle(color: Colors.white),),
                                   ),
                                 ),
@@ -279,23 +322,23 @@ class _SingleProductScreenState extends State<SingleProductScreen> {
                         'Edition:',style: TextStyle(color: MyColors.primaryColor)
                       )
                     ]),
-                    Column(children: [Text('${vehicle.edition}')]),
+                    Column(children: [Text('${vehicle.vehicle.edition}')]),
                     Column(children: [
                       Text(
                         'Year:',style: TextStyle(color: MyColors.primaryColor)
                       )
                     ]),
-                    Column(children: [Text('${vehicle.edition}')]),
+                    Column(children: [Text('${vehicle.vehicle.edition}')]),
                   ]),
                   TableRow(children: [
                     Column(children: [Text('Model:',style: TextStyle(color: MyColors.primaryColor))]),
-                    Column(children: [Text('${vehicle.model}')]),
+                    Column(children: [Text('${vehicle.vehicle.model}')]),
                     Column(children: [Text('Transmission:',style: TextStyle(color: MyColors.primaryColor))]),
-                    Column(children: [Text('${vehicle.transmission == 1? "Auto": "Manual"}')]),
+                    Column(children: [Text('${vehicle.vehicle.transmission == 1? "Auto": "Manual"}')]),
                   ]),
                   TableRow(children: [
                     Column(children: [Text('Fuel Type:',style: TextStyle(color: MyColors.primaryColor))]),
-                    Column(children: [Text('${vehicle.fuelType == 1? "Auto": "Manual"}')]),
+                    Column(children: [Text('${vehicle.vehicle.fuelType == 1? "Auto": "Manual"}')]),
                     Column(children: [Text('Gear:',style: TextStyle(color: MyColors.primaryColor))]),
                     Column(children: [Text('Auto')]),
                   ]),

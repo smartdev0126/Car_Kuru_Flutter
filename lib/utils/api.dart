@@ -59,6 +59,23 @@ Future<int> userCreate(data) async {
 }
 
 
+Future<int> profileUpdate(data,id) async {
+
+  final responseBody = (await http.patch(Uri.parse('$baseUrl/v0/user/${id}/'),
+      body: json.encode(data), headers: {'Content-Type': 'application/json'}));
+  saveUser(responseBody.body);
+  print(responseBody.body);
+
+  if (responseBody.statusCode == 200) {
+    print("Successfully updated");
+  }else {
+    print("Failed to submit ${responseBody.statusCode}");
+  }
+  return responseBody.statusCode;
+
+}
+
+
 Future<List<AllVehicle>> allVehicles() async {
   String url ='$baseUrl/v0/Vehicle/';
   final responseBody = (await http.get(Uri.parse(url)));
@@ -72,7 +89,7 @@ Future<List<AllVehicle>> allVehicles() async {
 }
 
 Future<Vehicle> singleVehicle(int id) async {
-  String url ='$baseUrl/v0/Vehicle/${id}/';
+  String url ='$baseUrl/v0/vehicle/details?id=${id}';
   final responseBody = (await http.get(Uri.parse(url)));
 
   if(responseBody.body !=null){
@@ -82,6 +99,23 @@ Future<Vehicle> singleVehicle(int id) async {
   }
 
 }
+
+
+Future<int> bidVehicle(data,id) async {
+
+  final responseBody = (await http.patch(Uri.parse('$baseUrl/v0/vehicle/details?id=${id}'),
+      body: json.encode(data), headers: {'Content-Type': 'application/json'}));
+  print(responseBody.body);
+
+  if (responseBody.statusCode == 200) {
+    print("Successfully bid");
+  }else {
+    print("Failed to bid ${responseBody.statusCode}");
+  }
+  return responseBody.statusCode;
+
+}
+
 
 Future<List<Brand>> allBrands() async {
   String url ='$baseUrl/v0/brand/';

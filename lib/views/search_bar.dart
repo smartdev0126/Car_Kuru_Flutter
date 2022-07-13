@@ -49,9 +49,9 @@ class _SearchNowState extends State<SearchNow> {
       appBar: AppBar(
         elevation: 3,
         iconTheme: IconThemeData(
-          color: MyColors.primaryColor, //change your color here
+          color: MyColors.white, //change your color here
         ),
-        backgroundColor: Colors.white,
+        backgroundColor: MyColors.primaryColor,
         title: Container(
           height: 40,
           color: MyColors.grey,
@@ -107,7 +107,7 @@ class _SearchNowState extends State<SearchNow> {
                     children: [
                       Container(
                         margin: EdgeInsets.only(left: 15, right: 15, top: 5),
-                        height: 150,
+                        height: 180,
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                           color: MyColors.black.withOpacity(0.8),
@@ -119,10 +119,9 @@ class _SearchNowState extends State<SearchNow> {
                           ),
                         ),
                         child: Container(
-                            margin: EdgeInsets.only(left: 20),
                             child: Image.network(
                               "${baseUrl}${searchList[i].image}",
-                              fit: BoxFit.contain,
+                              fit: BoxFit.cover,
                               alignment: Alignment.center,
                             )
                         ),

@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
+import '../search_bar.dart';
+
 class SearchScreen extends StatefulWidget {
   const SearchScreen({Key key}) : super(key: key);
 
@@ -52,23 +54,35 @@ class _SearchScreenState extends State<SearchScreen> {
                   decoration: BoxDecoration(
                       color: MyColors.white,
                       borderRadius: BorderRadius.circular(10)),
-                  child: new TextFormField(
-                    maxLines: 1,
-                    style: TextStyle(
-                        fontSize: 16.0, height: 1.0, color: Colors.black),
-                    controller: searchController,
-                    onChanged: (String value) async {},
-                    decoration: InputDecoration(
-                        isDense: true,
-                        suffixIcon: Icon(
-                          Icons.keyboard_voice_sharp,
-                          color: Colors.grey,
-                        ),
-                        contentPadding: EdgeInsets.only(
-                            left: 5, right: 10, top: 13, bottom: 0),
-                        border: InputBorder.none,
-                        hintText: "Search Now",
-                        hintStyle: TextStyle(fontSize: 14)),
+                  child:GestureDetector(
+                    onTap: (){
+                      Navigator.push(context, MaterialPageRoute(builder: (context) => SearchNow()));
+                    },
+                    child: Container(
+                        height: 50,
+                        padding: EdgeInsets.symmetric(horizontal: 5, vertical: 0),
+                        margin: EdgeInsets.only(left: 10, right: 10, bottom: 10),
+                        decoration: BoxDecoration(
+                            color: MyColors.white,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Container(
+                          child: ListTile(
+                            leading: Icon(
+                              Icons.search_rounded,
+                              color: Colors.grey,
+                            ),
+                            title: Text(
+                              "Search Now",
+                              style: TextStyle(fontSize: 16.0, height: 1.0, color: Colors.black),
+                            ),
+                            trailing: Icon(
+                              Icons.keyboard_voice_sharp,
+                              color: Colors.grey,
+                            ),
+                          ),
+                        )
+
+                    ),
                   ),
                 ),
               ],
