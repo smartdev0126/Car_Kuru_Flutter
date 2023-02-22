@@ -52,7 +52,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return [
       HomeScreen(widget.user),
       SearchNow(),
-      CameraScreen(),
+      // CameraScreen(),
       FavoriteScreen(),
       ProfileScreen(widget.user),
     ];
@@ -76,14 +76,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
         inactiveColorPrimary: CupertinoColors.systemGrey,
         title: ("Search"),
       ),
-      PersistentBottomNavBarItem(
-        icon: Icon(CupertinoIcons.camera_fill),
-        inactiveColorSecondary: MyColors.primaryColor,
-        activeColorPrimary: MyColors.primaryColor,
-        activeColorSecondary: MyColors.primaryColor,
-        inactiveColorPrimary: CupertinoColors.systemGrey,
-        title: ("Camera"),
-      ),
+      // PersistentBottomNavBarItem(
+      //   icon: Icon(CupertinoIcons.camera_fill),
+      //   inactiveColorSecondary: MyColors.primaryColor,
+      //   activeColorPrimary: MyColors.primaryColor,
+      //   activeColorSecondary: MyColors.primaryColor,
+      //   inactiveColorPrimary: CupertinoColors.systemGrey,
+      //   title: ("Camera"),
+      // ),
       PersistentBottomNavBarItem(
         icon: Icon(CupertinoIcons.star_fill),
         inactiveColorSecondary: MyColors.primaryColor,

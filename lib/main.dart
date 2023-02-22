@@ -2,21 +2,21 @@ import 'package:car_kuru/utils/shared_preference.dart';
 import 'package:car_kuru/views/homepage.dart';
 import 'package:car_kuru/views/splash.dart';
 import 'package:car_kuru/views/welcomeScreen.dart';
-import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
 
 import 'models/user.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   runApp(
     EasyLocalization(
         supportedLocales: [Locale('en', 'US'), Locale('de', 'DE')],
-        path: 'assets/translations', // <-- change the path of the translation files
+        path: 'assets/translations',
+        // <-- change the path of the translation files
         fallbackLocale: Locale('en', 'US'),
-        child: MyApp()
-    ),
+        child: MyApp()),
   );
 }
 
@@ -47,38 +47,31 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
   Users user;
   int loginStatus = 0;
 
-
   @override
   void initState() {
-
-    getUser().then((data){
+    getUser().then((data) {
       setState(() {
-        print(data.name);
         user = data;
-        if(data!=null){
-          int id = user.id;
-          print("id is ${id}");
+        if (data != null) {
           loginStatus = 1;
         }
-        if(loginStatus ==0){
+        if (loginStatus == 0) {
           new Future.delayed(const Duration(seconds: 3), () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => WelcomeScreen()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => WelcomeScreen()));
           });
-        }else{
-          Navigator.push(context, MaterialPageRoute(builder: (context) => HomePage(user)));
+        } else {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => HomePage(user)));
         }
-
       });
     });
 
-
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
